@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "AetherCore";
+}
+
+<div class="container">
+    <h4 style="font-weight: bold;" class="text-center my-4">Дисклеймер.</h4>
+    <h5 class="text-center my-4">⚠️Всё представленное на данном интернет-ресурсе не имеет ничего общего с реальностью. Любое совпадение с реальными людьми является случайным. Информация, представленная на сайте, не должна восприниматься как фактическая и не является основанием для каких-либо действий.</h5>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Аватар</th>
+                    <th>ФИО</th>
+                    <th>Рейтинг</th>
+                    <th>Подробнее</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form method="get" asp-action="Index" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="searchQuery" class="form-control" placeholder="Найти чела" value="@ViewBag.SearchQuery" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Найти</button>
+                        </div>
+                    </div>
+                </form>
+                @foreach (var user in Model)
+                {
+                    <tr >
+                        <td>
+                            <img src="@user.Avatat" alt="Avatar" class="rounded-circle" width="50" height="50" />
+                        </td>
+                        <td width="30%" style="font-size: 14px;">@user.Name</td>
+                        <td width="20%">
+                            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                                <h5 style="margin: 0; font-size: 14px;">@user.GradeO.ToString("F1")</h5>
+                                <span class="fa fa-star checked" style="font-size: 14px;"></span>
+                            </div>
+                        </td>
+                        <td width="30%">
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@user.Id_Prepod" class="btn" width="10%" style="font-size: 10px;">Комментарий</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FontAwesome для звезд -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+

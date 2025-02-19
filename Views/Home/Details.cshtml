@@ -1,0 +1,56 @@
+﻿@model AetherCore.Models.User
+
+@{
+    ViewData["Title"] = "Комментарии " + Model.Name;
+}
+
+<div class="container">
+    <h1 class="text-center my-4">Welcome to AetherCore</h1>
+
+    <form method="post" action="/Home/SubmitFeedback">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="userId" value="@Model.Id_Prepod" />
+        <div class="form-group">
+            <label for="comment">Ваш фидбек:</label>
+            <textarea class="form-control" id="comment" name="comment" rows="3" required maxlength="80"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+
+    <h3 class="mt-4">Отзывы</h3>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Оценка</th>
+                    <th>Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var feedback in Model.FeedBacks)
+                {
+                    <tr>
+                        <td>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                if (i < feedback.Grade)
+                                {
+                                    <span class="fa fa-star checked" style="color: orange;"></span>
+                                }
+                                else
+                                {
+                                    <span class="fa fa-star"></span>
+                                }
+                            }
+                        </td>
+                        <td>@feedback.Text</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Подключение FontAwesome для звезд -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
